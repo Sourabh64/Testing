@@ -9,7 +9,7 @@ added custom paths
     update_parent_key: if no simple element in current table: parent for nxt tbl = parent of current tabl
                        else: parent for nxt tbl = current of current tbl
 ** N O W
-all tables selected will have current_key and parent_key even if they dont have simple cols
+all tables selected will have current_key and parent_key even if they don't have simple cols
 
 dict-new table
 []- brought to parent level, take all combinations as records
@@ -51,18 +51,18 @@ class Json_Parser():
                 # //////////////////////
                 initial_table = ''
                 temp_name = meta_path_list[0]
-                temp_name = temp_name[1:] if temp_name[0] == '#' else temp_name
-                temp_name = temp_name[:-1] if temp_name[-1] == '#' else temp_name
-                temp_name = 'root#' + temp_name
-                path_list = temp_name.split('#')
+                temp_name = temp_name[1:] if temp_name[0] == '_' else temp_name
+                temp_name = temp_name[:-1] if temp_name[-1] == '_' else temp_name
+                temp_name = 'root_' + temp_name
+                path_list = temp_name.split('_')
                 found = False
                 for path in path_list[:-1]:
-                    initial_table = path if initial_table == '' else initial_table + '#' + path
+                    initial_table = path if initial_table == '' else initial_table + '_' + path
                     for table_path in meta_path_list:
-                        table_path = 'root#' + table_path
+                        table_path = 'root_' + table_path
 
-                        if initial_table + '#' not in table_path + '#':  # for root#hit & root#hits =>root#hit#/root#hits#
-                            initial_table = '#'.join(initial_table.split('#')[:-1])
+                        if initial_table + '_' not in table_path + '_':  # for root#hit & root#hits =>root#hit#/root#hits#
+                            initial_table = '_'.join(initial_table.split('_')[:-1])
                             initial_table = 'root' if initial_table == '' else initial_table  # safe side
                             dest_meta_dict[initial_table] = ['current_key', 'parent_key']
                             found = True
@@ -75,19 +75,19 @@ class Json_Parser():
                 # ///////////////////
 
                 for table_path in meta_path_list:
-                    table_path = table_path[1:] if table_path[0] == '#' else table_path
-                    table_path = table_path[:-1] if table_path[-1] == '#' else table_path
-                    table_path = 'root#' + table_path
-                    path_list = table_path.split('#')
+                    table_path = table_path[1:] if table_path[0] == '_' else table_path
+                    table_path = table_path[:-1] if table_path[-1] == '_' else table_path
+                    table_path = 'root_' + table_path
+                    path_list = table_path.split('_')
 
-                    parent_table_name = '#'.join(path_list[:-1])
+                    parent_table_name = '_'.join(path_list[:-1])
                     column_name = path_list[-1]
 
                     if parent_table_name not in dest_meta_dict:
                         table = ''
                         for path in path_list[:-1]:
-                            table = path if table == '' else table + '#' + path
-                            if table + '#' not in initial_table + '#':  # safe side
+                            table = path if table == '' else table + '_' + path
+                            if table + '_' not in initial_table + '_':  # safe side
                                 if table not in dest_meta_dict:
                                     dest_meta_dict[table] = ['current_key', 'parent_key']
 
@@ -155,7 +155,7 @@ class Json_Parser():
                             if key not in self.meta_dict[table_path]['exclude']:
                                 self.clean_df(table_path, key)
 
-                            key_for_new_table = table_path + '#' + key
+                            key_for_new_table = table_path + '_' + key
                             # has_simple_element = self.dict_has_simple_element(data, table_path)
                             '''if has_simple_element:
                                 parent_key = self.meta_dict[table_path]['current_key']
@@ -166,7 +166,7 @@ class Json_Parser():
                             self.process_data(data[key], table_path=key_for_new_table, parent_key=parent_key)
                     elif isinstance(data[key], list):
                         # self.clean_df(table_path,key)     #**_**_**_**_**_**_ null to nested/str to nested to discuss
-                        key_for_new_table = table_path + '#' + key
+                        key_for_new_table = table_path + '_' + key
 
                         # //////////////////
                         # has_simple_element = self.dict_has_simple_element(data, table_path)
@@ -249,8 +249,8 @@ class Json_Parser():
 
             elif isinstance(data, list):
 
-                path_list = table_path.split('#')
-                parent_table_name = '#'.join(path_list[:-1])
+                path_list = table_path.split('_')
+                parent_table_name = '_'.join(path_list[:-1])
                 list_column_name = path_list[-1]
 
                 for i, row in enumerate(data):
@@ -289,7 +289,7 @@ class Json_Parser():
         try:
             table_df = {}
             for table_name, contents in self.final_df.items():
-                table_name = table_name.replace('#', '_')
+                table_name = table_name.replace('_', '_')
                 self.log.info(f"Creating table {table_name} with {len(contents)} records")
                 table_df[table_name] = pd.DataFrame(contents)
                 # cols_to_move = ['current_key', 'parent_key']
@@ -320,22 +320,22 @@ class Json_Parser_v3():
             dest_meta_dict = {}
             root_path = 'root'
             if self.etl_name:
-                root_path = self.etl_name + "#" + root_path
+                root_path = self.etl_name + "_" + root_path
             if meta_path_list:
                 initial_table = ''
                 temp_name = meta_path_list[0]
-                temp_name = temp_name[1:] if temp_name[0] == '#' else temp_name
-                temp_name = temp_name[:-1] if temp_name[-1] == '#' else temp_name
-                temp_name = root_path + '#' + temp_name
-                path_list = temp_name.split('#')
+                temp_name = temp_name[1:] if temp_name[0] == '_' else temp_name
+                temp_name = temp_name[:-1] if temp_name[-1] == '_' else temp_name
+                temp_name = root_path + '_' + temp_name
+                path_list = temp_name.split('_')
                 found = False
                 for path in path_list[:-1]:
-                    initial_table = path if initial_table == '' else initial_table + '#' + path
+                    initial_table = path if initial_table == '' else initial_table + '_' + path
                     for table_path in meta_path_list:
-                        table_path = root_path + '#' + table_path
+                        table_path = root_path + '_' + table_path
 
-                        if initial_table + '#' not in table_path + '#':  # for root#hit & root#hits =>root#hit#/root#hits#
-                            initial_table = '#'.join(initial_table.split('#')[:-1])
+                        if initial_table + '_' not in table_path + '_':  # for root#hit & root#hits =>root#hit#/root#hits#
+                            initial_table = '_'.join(initial_table.split('_')[:-1])
                             initial_table = root_path if initial_table == '' else initial_table  # safe side
                             dest_meta_dict[initial_table] = ['current_key', 'parent_key']
                             found = True
@@ -347,19 +347,19 @@ class Json_Parser_v3():
                     dest_meta_dict[initial_table] = ['current_key', 'parent_key']
 
                 for table_path in meta_path_list:
-                    table_path = table_path[1:] if table_path[0] == '#' else table_path
-                    table_path = table_path[:-1] if table_path[-1] == '#' else table_path
-                    table_path = root_path + '#' + table_path
-                    path_list = table_path.split('#')
+                    table_path = table_path[1:] if table_path[0] == '_' else table_path
+                    table_path = table_path[:-1] if table_path[-1] == '_' else table_path
+                    table_path = root_path + '_' + table_path
+                    path_list = table_path.split('_')
 
-                    parent_table_name = '#'.join(path_list[:-1])
+                    parent_table_name = '_'.join(path_list[:-1])
                     column_name = path_list[-1]
 
                     if parent_table_name not in dest_meta_dict:
                         table = ''
                         for path in path_list[:-1]:
-                            table = path if table == '' else table + '#' + path
-                            if table + '#' not in initial_table + '#':  # safe side(for root#hit & root#hits =>root#hit#/root#hits#)
+                            table = path if table == '' else table + '_' + path
+                            if table + '_' not in initial_table + '_':  # safe side(for root#hit & root#hits =>root#hit#/root#hits#)
                                 if table not in dest_meta_dict:
                                     dest_meta_dict[table] = ['current_key', 'parent_key']
 
@@ -438,7 +438,7 @@ class Json_Parser_v3():
             selected_column = False
             if key not in self.meta_dict[table_path]['columns']:
                 # if table_path in self.all_paths and key not in self.all_paths[table_path]:
-                if self.all_paths != {} and key not in self.all_paths[table_path] and table_path + "#" + key not in self.all_paths:
+                if self.all_paths != {} and key not in self.all_paths[table_path] and table_path + "_" + key not in self.all_paths:
                     if self.user_preference['new_paths'] != 'auto_delete':
                         if key not in self.meta_dict[table_path]['exclude']:
                             if key not in self.meta_dict[table_path]['user_conditions']['columns']:
@@ -488,7 +488,7 @@ class Json_Parser_v3():
             temp_list = []
             if not table_path:
                 if self.etl_name:
-                    table_path = self.etl_name + '#' + 'root'
+                    table_path = self.etl_name + '_' + 'root'
                 else:
                     table_path = 'root'
             if table_path not in self.final_df and table_path not in self.restream_df and table_path not in self.meta_dict:
@@ -519,12 +519,12 @@ class Json_Parser_v3():
                             if key not in self.meta_dict[table_path]['exclude']:
                                 self.clean_df(table_path, key)
 
-                            key_for_new_table = table_path + '#' + key
+                            key_for_new_table = table_path + '_' + key
                             parent_key = self.meta_dict[table_path]['current_key']
                             self.process_data(data[key], table_path=key_for_new_table, parent_key=parent_key)
                     elif isinstance(data[key], list):
                         if data[key] != []:
-                            key_for_new_table = table_path + '#' + key
+                            key_for_new_table = table_path + '_' + key
                             parent_key = self.meta_dict[table_path]['current_key']
                             self.process_data(data[key], table_path=key_for_new_table, parent_key=parent_key)
                     else:
@@ -582,8 +582,8 @@ class Json_Parser_v3():
 
             elif isinstance(data, list):
 
-                path_list = table_path.split('#')
-                parent_table_name = '#'.join(path_list[:-1])
+                path_list = table_path.split('_')
+                parent_table_name = '_'.join(path_list[:-1])
                 list_column_name = path_list[-1]
 
                 for i, row in enumerate(data):
@@ -621,6 +621,24 @@ class Json_Parser_v3():
             raise
         return self.final_df
 
+    def get_dtype_conversions(self, df):
+        dtype_conversion_dict = {'int64': 'int8', 'object': 'varchar', 'float64': 'float8', 'datetime64[ns]': 'timestamp',
+                                 'datetime64': 'timestamp', 'datetime64[ns, tzlocal()]': 'timestamp', 'bool': 'boolean',
+                                 'datetime64[ns, UTC]': 'timestamp'}
+        rs_dtype_list = []
+        for i, v in zip(df.dtypes.index, df.dtypes.values):
+            rs_dtype = dtype_conversion_dict[str(v)]
+            if v == "object":
+                try:
+                    if df[i].str.len().max() < 1:
+                        # To avoid varchar(e)
+                        rs_dtype += '({})'.format(int(1))
+                    else:
+                        rs_dtype += '({})'.format(int(df[i].str.len().max()))
+                except AttributeError:
+                    print("Attribute Error for {}, {}".format(i, v))
+            rs_dtype_list.append(rs_dtype)
+        return rs_dtype_list
     # def generate_table_df(self):
     #     try:
     #         final_df = {}

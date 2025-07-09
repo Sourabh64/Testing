@@ -2,7 +2,7 @@ import requests
 import json
 
 
-url = f"https://gitlab.payu.in/api/v4/projects?private_token=FcTKF6eRu3Ff9KuVMXuU&pagination=keyset&per_page=50&order_by=id&sort=asc"
+url = f"https://gitlab.payu.in/api/v4/users?private_token=glpat-RQ4mAxofGTw-eqKctPfx&pagination=keyset&per_page=50&order_by=id&sort=asc"
 response = requests.get(url)
 final_response = response.json()
 count = 1
@@ -14,5 +14,5 @@ while 'Link' in response.headers:
     count += 1
 
 # print(final_response)
-with open("all_git.json", "w") as f:
+with open("all_git_users.json", "w") as f:
     json.dump(final_response, f)
