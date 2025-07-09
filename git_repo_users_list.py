@@ -7,7 +7,7 @@ final_list = []
 for repo in data:
     members_url = repo["_links"]["members"]
     repo_url = repo['web_url']
-    url = members_url+"?private_token=FcTKF6eRu3Ff9KuVMXuU"
+    url = members_url+"?private_token=token"
     response = requests.get(url)
     resp = response.json()
     member_dict = {"repo_url": repo_url, 'name': [], 'username': [], 'blocked': []}
