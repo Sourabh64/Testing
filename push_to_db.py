@@ -4,11 +4,11 @@ from json_parser import Json_Parser_v3
 
 class DB:
     def __init__(self):
-        self.host = "cmdb.cluster-cwlt8slqy9sh.ap-south-1.rds.amazonaws.com"
-        self.username = "cmdb_app"
-        self.password = "ZrV97VeHv2"
+        self.host = "hostname"
+        self.username = "username"
+        self.password = "password"
         self.port = 5432
-        self.db = "cmdb"
+        self.db = "db"
 
     def connect(self):
         connection = psycopg2.connect(host=self.host, user=self.username, password=self.password, port=self.port,
