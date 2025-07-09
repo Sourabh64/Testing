@@ -102,7 +102,7 @@ class DB:
                 # conn.close()
                 print("Pushing")
                 engine = sqlalchemy.create_engine(
-                    'postgresql://cmdb_app:ZrV97VeHv2@cmdb.cluster-cwlt8slqy9sh.ap-south-1.rds.amazonaws.com:5432/cmdb')
+                    'entire_path')
                 # , dtype = {"remediations_remediations": sqlalchemy.types.JSON}
                 df_dict[df].to_sql(table_name, con=engine, schema='aws', if_exists='append', index=False)
             return True
