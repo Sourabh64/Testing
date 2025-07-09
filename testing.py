@@ -16,14 +16,14 @@ from requests.auth import HTTPBasicAuth
 
 import json
 
-url = "http://10.225.5.221:9010/api/projects/search?ps=500&p=1"
+url = "http://ip:port/api/projects/search?ps=500&p=1"
 
 
-response = requests.request("GET", url, auth=HTTPBasicAuth("13447da15bec677be81935e778ae47d6f54ba7a3", ""))
+response = requests.request("GET", url, auth=HTTPBasicAuth("token", ""))
 
 resp = response.json()["components"]
 for project in resp:
     print(project["key"], project["name"])
-    url = "http://10.225.5.221:9010/api/"
+    url = "http://ip:port/api/"
 
     export_findings_for_project(project=key)
