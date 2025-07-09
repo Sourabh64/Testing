@@ -15,7 +15,7 @@ project_list = ['COCR-', 'PAYUAP-', 'MS-', 'CRBK-', 'PART-', 'REF-', 'BBPCNCT-',
 for i in data['components']:
     if 'MS-' in i['key']:
         project = i['key']
-        url = f"http://10.225.5.221:9010/api/project_dump/export?key={project}"
+        url = f"http://ip:portt/api/project_dump/export?key={project}"
         headers = {
             'Authorization': 'Basic MTM0NDdkYTE1YmVjNjc3YmU4MTkzNWU3NzhhZTQ3ZDZmNTRiYTdhMzo=',
             'Content-Type': 'application/json'
@@ -25,7 +25,7 @@ for i in data['components']:
         if response.status_code == 200:
             print(i['key'])
             time.sleep(3)
-            delete_URL = f"http://10.225.5.221:9010/api/projects/delete?project={project}"
+            delete_URL = f"http://ip:port/api/projects/delete?project={project}"
             response_del = requests.request("POST", delete_URL, headers=headers)
             if response_del.status_code == 204:
                 pass
