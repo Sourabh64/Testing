@@ -2,7 +2,7 @@ import requests
 import json
 
 
-url = f"https://gitlab.payu.in/api/v4/users?private_token=glpat-RQ4mAxofGTw-eqKctPfx&pagination=keyset&per_page=50&order_by=id&sort=asc"
+url = f"https://gitlab.payu.in/api/v4/users?private_token=token&pagination=keyset&per_page=50&order_by=id&sort=asc"
 response = requests.get(url)
 final_response = response.json()
 count = 1
