@@ -1,0 +1,2 @@
+date,content-type,content-length,connection,x-amzn-requestid,x-amz-apigw-id,x-amzn-trace-id,current_key,parent_key
+"Wed, 18 Jun 2025 08:20:20 GMT",application/json,315503,keep-alive,45f56a7b-dded-4fe2-b361-a213be15e551,MWd-xEpthcwEDcQ=,Root=1-685276c4-4e8508bd4612cda16c95e8e8,1,1
