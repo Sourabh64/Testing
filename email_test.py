@@ -27,15 +27,15 @@ class AD:
         # self.ldap_username = config.get('LDAP', 'username')
         # self.ldap_password = config.get('LDAP', 'password')
         # self.ldap_search_base = config.get('LDAP', 'search_base')
-        self.user_name = "payu_api"
-        self.password = "3MzkqYPQJjNvQTX$By8km3Mm@4qdK8IHHYej3&QCav1g@imXh&MqonZSOVAAN9UN"
-        self.pending_api_key = "f90935aea88d9d2831cc67ed5874f5d3543a06f62ed0369d8c8b1408515d589459133f3aa0b26b7841f68391003a9de131f7e371bb3eebc09d9e50ec12b04e04"
-        self.pending_dataset_key = "376e4798b1ec132a4cd24b2d88b203ce2f9ccba9d085b0f9220421e7e2090d7049edf6819ca4ea6a11e5166c88f273ea9ea89f07737dc4581d59a74c871ed79d"
+        self.user_name = "username"
+        self.password = "password"
+        self.pending_api_key = "key"
+        self.pending_dataset_key = "key2"
         self.smtp_server = "smtp.office365.com"
         self.smtp_port = 587
-        self.sender = "HRMS.Notification@payu.in"
-        self.server_password = "Joz44358"
-        self.error_email = "sourabh.kulkarni@payu.in"
+        self.sender = "email"
+        self.server_password = "password2"
+        self.error_email = "email"
         # self.email_list = config.get('Email', 'email_list').split(",")
         # to_address = []
         # for email in self.email_list:
@@ -43,7 +43,7 @@ class AD:
         # self.emails = ", ".join(to_address)
 
     def message_creation(self, to_address, subject, body):
-        message = f"""From: HRMS Notification <HRMS.Notification@payu.in>\nTo:{to_address}
+        message = f"""From: email\nTo:{to_address}
         \nContent-type: text/html\nSubject: {subject}\n\n{body}"""
         return message
 
