@@ -2,7 +2,6 @@ import pyspark
 
 import os
 import msal
-
 import io
 import requests
 import pandas as pd
